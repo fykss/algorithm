@@ -1,4 +1,4 @@
-package max_pairwise_product;
+package problems.max_pairwise_product;
 
 import java.io.BufferedReader;
 import java.io.IOException;

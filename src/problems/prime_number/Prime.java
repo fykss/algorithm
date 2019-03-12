@@ -1,4 +1,4 @@
-package prime_number;
+package problems.prime_number;
 
 import java.util.ArrayList;
 import java.util.List;
