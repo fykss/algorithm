@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 /*
   Find the maximum product of two distinct numbers in a sequence of non-negative integers.
   Problems: Enter count number -> find two max number in array -> multiply this two number
-  Example: enter number 3 -> array consist 3 value, arr = {1, 2, 3} -> result 3
+  Example: enter number 3 -> array consist 3 value, arr = {1, 2, 3} -> result 6
  */
 
 public class MaxPairwiseProduct {

@@ -2,20 +2,17 @@ package sort;
 
 import java.util.Arrays;
 
-public class BubbleSort {
+public class SelectionSort {
 
-    private static int[] bubbleSort(int[] arr) {
-        boolean needIteration = true;
-
-        while (needIteration) {
-            needIteration = false;
-
-            for (int i = 1; i < arr.length; i++) {
-                if (arr[i - 1] > arr[i]) {
-                    swap(arr, i - 1, i);
-                    needIteration = true;
+    private static int[] selectionSort(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            int minIndex = i;
+            for (int j = i; j < arr.length; j++) {
+                if (arr[j] < arr[minIndex]) {
+                    minIndex = j;
                 }
             }
+            swap(arr, i, minIndex);
         }
         return arr;
     }
@@ -30,7 +27,7 @@ public class BubbleSort {
         int[] arrNumber = {3, 5, 2};
         System.out.println("Source array:" + Arrays.toString(arrNumber));
 
-        int[] sortedArr = bubbleSort(arrNumber);
+        int[] sortedArr = selectionSort(arrNumber);
         System.out.println("Sorted array:" + Arrays.toString(sortedArr));
     }
 }
