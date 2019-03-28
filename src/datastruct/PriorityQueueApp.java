@@ -2,6 +2,7 @@ package datastruct;
 
 public class PriorityQueueApp {
 
+
     private int[] data;
     private int count;
 
@@ -20,15 +21,16 @@ public class PriorityQueueApp {
         count++;
     }
 
-    private void add(int v) {
-        this.data[count++] = v;
+    private void add(int newVal) {
+        int pos = find_pos(newVal);
+        shift(pos);
+        insert(pos, newVal);
     }
 
-    private void print() {
+    void print() {
         StringBuilder sb = new StringBuilder("[");
         boolean first = true;
-
-        for (int i = 0; i < this.data.length; i++) {
+        for (int i = 0; i < count; i++) {
             if (first) {
                 first = false;
             } else {
@@ -39,36 +41,45 @@ public class PriorityQueueApp {
         System.out.println(sb.append("]"));
     }
 
-    private void insert(int pos, int val) {
+    void insert(int pos, int val) {
         this.data[pos] = val;
     }
 
-    private int find_pos(int val) {
+    int find_pos2(int val) {
+        // this.data[0..count-1]
         for (int i = 0; i < count; i++) {
             if (data[i] >= val) {
                 return i;
             }
         }
-
         return count;
     }
 
+    int find_pos(int val) {
+        int left = 0;
+        int right = count - 1;
+        while (left <= right) {
+            int middle = (right + left) / 2;
+            if (val > data[middle]) {
+                left = middle + 1;
+            } else if (val < data[middle]) {
+                right = middle - 1;
+            } else {
+                return middle;
+            }
+        }
+        return left;
+
+    }
+
+
     public static void main(String[] args) {
         PriorityQueueApp pq = new PriorityQueueApp(20);
-        for (int i = 30; i < 40; i++) {
-//            int val = (int) (Math.random() * 50);
-            int val = i;
-            System.out.println(val);
+        for (int i = 1; i <= 20; i++) {
+            int val = (int) (Math.random() * 99);
             pq.add(val);
+            pq.print();
         }
-        System.out.println(pq.poll());
-
-
-        pq.print();
-        int newVal = 33;
-        int pos = pq.find_pos(newVal);
-        pq.shift(pos);
-        pq.insert(pos, newVal);
         pq.print();
     }
 }
