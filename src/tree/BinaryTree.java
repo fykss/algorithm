@@ -1,6 +1,10 @@
 package tree;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class BinaryTree {
 
@@ -66,19 +70,25 @@ public class BinaryTree {
     public static void main(String[] args) {
         BinaryTree binaryTree = new BinaryTree();
 
+        Set<Integer> randoms1 = Stream.generate(() -> (int) (Math.random() * 100))
+                .limit(20).collect(Collectors.toSet());
+        Set<Integer> randoms2 = Stream.generate(() -> (int) (Math.random() * 100 + 100))
+                .limit(20).collect(Collectors.toSet());
 
+        randoms1.forEach(item -> binaryTree.add(item));
 
+        List<Optional<Node>> collect = randoms1
+                .stream()
+                .map(item -> binaryTree.contains(item))
+                .filter(Optional::isPresent)
+                .collect(Collectors.toList());
+        System.out.println(collect.size() == randoms1.size() ? "Ales good" : "Smth went wrong");
 
-        binaryTree.add(30);
-        binaryTree.add(20);
-        binaryTree.add(40);
-        binaryTree.add(50);
-        binaryTree.add(60);
-
-        System.out.println(binaryTree.contains(30).isPresent());
-        System.out.println(binaryTree.contains(31).isPresent());
-        System.out.println(binaryTree.contains(40).isPresent());
-        System.out.println(binaryTree.contains(50).isPresent());
-        System.out.println(binaryTree.contains(60).isPresent());
+        List<Optional<Node>> collect2 = randoms2
+                .stream()
+                .map(item -> binaryTree.contains(item))
+                .filter(Optional::isPresent)
+                .collect(Collectors.toList());
+        System.out.println(collect2.size() == 0 ? "Ales good" : "Smth went wrong");
     }
 }
