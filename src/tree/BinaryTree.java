@@ -63,8 +63,38 @@ public class BinaryTree {
         }
     }
 
+    private void remove(Node parent, Node curr, int value) {
+        if (value == curr.value) {
+            if (curr.left == null && curr.right == null) {
+                if (parent.left == curr) {
+                    parent.left = null;
+                } else {
+                    parent.right = null;
+                }
+            } else if (curr.left != null && curr.right == null) {
+                if (parent.left == curr) {
+                    parent.left = curr.left;
+                } else {
+                    parent.right = curr.left;
+                }
+            } else if (curr.left == null && curr.right != null) {
+                if (parent.left == curr) {
+                    parent.left = curr.right;
+                } else {
+                    parent.right = curr.right;
+                }
+            } else {
+                throw new IllegalStateException("too deep rabbit hole ...");
+            }
+        } else if (value < curr.value) {
+            remove(curr, curr.left, value);
+        } else if (value > curr.value) {
+            remove(curr, curr.right, value);
+        }
+    }
+
     void remove(int value) {
-        throw new IllegalStateException("Not implement yet");
+        remove(null, root, value);
     }
 
     public static void main(String[] args) {
@@ -90,5 +120,10 @@ public class BinaryTree {
                 .filter(Optional::isPresent)
                 .collect(Collectors.toList());
         System.out.println(collect2.size() == 0 ? "Ales good" : "Smth went wrong");
+
+        binaryTree.add(500);
+        System.out.println(binaryTree.contains(500).isPresent());
+        binaryTree.remove(500);
+        System.out.println(binaryTree.contains(500).isPresent());
     }
 }
