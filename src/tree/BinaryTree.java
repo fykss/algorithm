@@ -63,26 +63,22 @@ public class BinaryTree {
         }
     }
 
+    private void relink_parent(Node parent, Node from, Node to) {
+//        if (parent.left == curr) {
+//            parent.left = curr.right;
+//        } else {
+//            parent.right = curr.right;
+//        }
+    }
+
     private void remove(Node parent, Node curr, int value) {
         if (value == curr.value) {
             if (curr.left == null && curr.right == null) {
-                if (parent.left == curr) {
-                    parent.left = null;
-                } else {
-                    parent.right = null;
-                }
+                relink_parent(parent, curr, null);
             } else if (curr.left != null && curr.right == null) {
-                if (parent.left == curr) {
-                    parent.left = curr.left;
-                } else {
-                    parent.right = curr.left;
-                }
+                relink_parent(parent, curr, curr.left);
             } else if (curr.left == null && curr.right != null) {
-                if (parent.left == curr) {
-                    parent.left = curr.right;
-                } else {
-                    parent.right = curr.right;
-                }
+                relink_parent(parent, curr, curr.right);
             } else {
                 throw new IllegalStateException("too deep rabbit hole ...");
             }
